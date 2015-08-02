@@ -10,7 +10,7 @@
  * @element EA
  *
  */
-angular.module('myApp').directive('paging', function () {
+yaioApp.directive('paging', function () {
 
     // Assign null-able scope values from settings
     function setScopeValues(scope, attrs) {
@@ -295,15 +295,12 @@ angular.module('myApp').directive('paging', function () {
 				'<span ng-bind="Item.value"></span> ' +
             '</ul>',
         link: function (scope, element, attrs) {
-            
-            scope.$watch('page', function () {
-                build(scope, attrs);
+            // wait till NodeListReady is set
+            scope.$on("NodeListReady", function  (){
+                scope.$watch('page', function () {
+                    build(scope, attrs);
+                });
             });
-            
-            scope.$watch('total', function () {
-                build(scope, attrs);
-            });
-            
         }
     };
 });
